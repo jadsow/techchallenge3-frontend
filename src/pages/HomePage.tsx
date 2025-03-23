@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPosts, createPost, deletePost } from '../services/api';
 import { useAuth } from '../context/authContext';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
   display: flex;
@@ -277,6 +279,7 @@ const HomePage = () => {
       setAuthor('');
     } catch (error) {
       console.error('Erro ao criar o post:', error);
+      toast.error('Ocorreu um erro ao criar o post.');
     }
   };
 
@@ -285,6 +288,7 @@ const HomePage = () => {
       await deletePost(id);
     } catch (error) {
       console.error('Erro ao excluir o post:', error);
+      toast.error('Ocorreu um erro ao deletar o post.');
     }
 
     fetchPosts();
@@ -296,6 +300,7 @@ const HomePage = () => {
 
   return (
     <Container>
+      <ToastContainer />
       {user ? (
         <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
       ) : (

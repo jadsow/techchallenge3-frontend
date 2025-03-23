@@ -61,4 +61,4 @@ A primeira página da aplicação é composta pela lista de posts e pelo cadastr
 Poderá também filtrar os posts pelo título e autor.
 Ao clicar em Ler mais, você poderá ver as informações completas do post, lembre-se, para editar ou excluir qualquer post, você deverá estar logado na aplicação.
 
-A edição você conseguirá realizar dentro e um post, já a exclusão, a própria listagem terá o botão (caso você estiver logado)
+A edição você conseguirá realizar dentro e um post, já a exclusão, a própria listagem terá o botão (caso você estiver logado). Vale ressaltar que implementamos o toast da biblioteca react-toastify para trazer uma mensagem mais amigável ao usuário quando houver algum tipo de problema.

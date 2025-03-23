@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { getPostById, updatePost } from '../services/api';
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const Container = styled.div`
   display: flex;
@@ -120,11 +122,13 @@ const EditPostPage = () => {
       navigate(`/posts/${id}`);
     } catch (error) {
       console.log('Error updating post:', error);
+      toast.error('Ocorreu um erro ao editar o post.');
     }
   };
 
   return (
     <Container>
+      <ToastContainer />
       <PostCard>
         <Title>Editar Post</Title>
         <Input
