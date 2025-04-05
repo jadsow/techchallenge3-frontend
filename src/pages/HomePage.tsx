@@ -32,7 +32,7 @@ const PostCard = styled.div`
   background-color: rgba(143, 143, 143, 0.79);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 50%;
+  width: 70%;
   margin-bottom: 20px;
   padding: 5px;
   transition: transform 0.2s ease-in-out;

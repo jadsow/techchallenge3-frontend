@@ -55,7 +55,7 @@ E o componente EditPost, responsável pela edição de um post.
 
 Para setup inicial, basta clonar o projeto e rodar o npm install, após isso, rodar o comando npm run dev para rodar a aplicação.
 
-Para consumo do back-end e utilização da aplicação por completo, você deverá baixar o nosso back-end (clonar o repositório), abrir o docker Desktop e rodar o comando docker compose up.
+Para consumo do back-end e utilização da aplicação por completo, você deverá baixar o nosso back-end (clonar o repositório), abrir o docker Desktop em sua máquina, abrir o projeto em seu editor de código e rodar o comando docker compose up.
 
 A primeira página da aplicação é composta pela lista de posts e pelo cadastro de um novo post, caso você deseje.
 Poderá também filtrar os posts pelo título e autor.
