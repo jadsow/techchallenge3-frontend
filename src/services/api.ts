@@ -1,6 +1,8 @@
+import { env } from '../env';
+
 import { Post } from '../types/Post';
 
-const API_URL = 'http://localhost:3010/posts/';
+const API_URL = env.VITE_API_URL;
 
 export const getPosts = async (): Promise<Post[]> => {
   const response = await fetch(API_URL);
