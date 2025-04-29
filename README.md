@@ -1,65 +1,137 @@
-1. O nosso projeto utiliza a biblioteca React para a construção de uma aplicação web. O gerenciamento de estado global é feito por meio de Context API, que permite que dados sejam compartilhados em diversos componentes da árvore de componentes sem a necessidade de prop drilling. No projeto, existem dois contextos principais: PostContext e AuthContext.
+# Tech Challenge - Frontend
 
-2. Estrutura da Pasta context
-   Dentro da pasta context, existem os arquivos responsáveis pelo gerenciamento do estado global do projeto. Abaixo estão descrições detalhadas dos dois contextos principais:
+Este projeto é uma aplicação web desenvolvida em **React**, com gerenciamento de estado global usando **Context API**. A aplicação permite o cadastro, listagem, edição e exclusão de posts, além de autenticação de usuários.
 
-3. PostContext (postContext.tsx)
-   Objetivo:
-   Gerenciar o estado relacionado aos posts. Esse contexto fornece funcionalidades para armazenar, acessar e atualizar os dados dos posts.
-   Neste arquivo, temos as seguintes informações:
+> **Nota**: A Context API facilita o compartilhamento de dados entre múltiplos componentes da árvore, sem a necessidade de prop drilling. No projeto, utilizamos dois contextos principais: **PostContext** e **AuthContext**.
 
-Post (Interface): Define a estrutura dos dados de um post, com os campos title, content, author, e opcionalmente \_id.
+## Índice
 
-PostState (Interface): Define o estado do contexto, que é um array de objetos Post.
+- [Tecnologias Utilizadas](#tecnologias-utilizadas)
+- [Estrutura do Projeto](#estrutura-do-projeto)
+  - [Context](#context)
+    - [PostContext](#postcontext)
+    - [AuthContext](#authcontext)
+  - [Pages](#pages)
+  - [Services](#services)
+  - [Types](#types)
+- [Setup do Projeto](#setup-do-projeto)
+- [Funcionalidades Principais](#funcionalidades-principais)
 
-PostAction (Tipo de Ação): Define as ações que podem ser despachadas para o reducer. No momento, só existe a ação SET_POSTS, que define os posts no estado.
+---
 
-Reducer (Função): A função postReducer gerencia as ações e altera o estado com base na ação disparada.
+## Tecnologias Utilizadas
 
-PostContext: Um contexto React que mantém o estado dos posts e fornece a função setPosts para atualizar esse estado.
+- React
+- Context API
+- Typescript
+- React Router Dom
+- React Toastify
+- Docker (para backend)
+- Axios
 
-PostProvider: Um componente que envolve os filhos do componente, providenciando o estado de posts e a função setPosts através do contexto.
+---
 
-usePostContext: Um hook customizado que facilita o consumo do contexto de posts em qualquer componente filho.
+## Estrutura do Projeto
 
-4. AuthContext (authContext.tsx)
-   Objetivo:
-   Gerenciar o estado de autenticação do usuário. Esse contexto permite armazenar e recuperar o estado de login do usuário, além de oferecer métodos para realizar o login e logout.
+### Context
 
-AuthContextType (Tipo de Contexto): Define a estrutura do contexto de autenticação, que inclui a variável user (o usuário autenticado), e as funções login e logout.
+Na pasta src/context, estão os arquivos responsáveis pelo gerenciamento global do projeto, que é organizado em dois principais contextos:
 
-AuthContext: Cria um contexto para gerenciar o estado de autenticação.
+#### PostContext (`postContext.tsx`)
 
-useAuth: Um hook customizado para acessar facilmente o contexto de autenticação em qualquer componente.
+Responsável pelo gerenciamento de posts.
 
-AuthProvider: Um componente que envolve os filhos do componente, fornecendo o estado de autenticação (user) e as funções de login e logout através do contexto. Além disso, ele armazena o estado de autenticação no localStorage para persistir a sessão entre as atualizações da página.
+- **Post (Interface)**: Define a estrutura de um post (`title`, `content`, `author` e opcionalmente `_id`).
+- **PostState (Interface)**: Representa o estado que é um array de posts.
+- **PostAction**: Define ações do reducer (atualmente apenas `SET_POSTS`).
+- **Reducer**: `postReducer` gerencia as ações e atualiza o estado conforme necessário.
+- **PostContext**: Contexto que armazena o estado e a função `setPosts`.
+- **PostProvider**: Componente que provê o estado de posts para os componentes filhos.
+- **usePostContext**: Hook customizado para consumir o contexto de posts facilmente.
 
-5. Pasta Pages:
-   Contém todas as páginas da aplicação.
-   O componente Login é o responsável pela página de login, determinante para a exclusão e editção de posts;
+#### AuthContext (`authContext.tsx`)
 
-O componente HomePage é o responsável pelo cadastro e listagem de todos os posts da aplicação, assim como a deleção de algum post;
+Responsável pelo gerenciamento de autenticação de usuários.
 
-O componente PostDetail que é responsável pelo detalhe de cada post;
+- **AuthContextType**: Define o formato do contexto (`user`, `login`, `logout`).
+- **AuthContext**: Contexto de autenticação.
+- **useAuth**: Hook customizado para consumo do contexto de autenticação.
+- **AuthProvider**: Componente que provê autenticação aos componentes filhos. Usa `localStorage` para persistência de sessão.
 
-O componente ProtectedRoute, que é basicamente um authguard da nossa aplicação, responsável por verificar, a cada rota requisitada (no front-end) pelo usuário se ele está logado ou não. Você poderá verificar o funcionamento dele no componente App.tsx.
+> **Nota**: O AuthProvider é responsável por fornecer o estado de autenticação (user) e as funções de login e logout através do contexto. Além disso, ele armazena o estado de autenticação no `localStorage` para persistir a sessão entre as atualizações da página.
 
-E o componente EditPost, responsável pela edição de um post.
+---
 
-6. Pasta services
-   Responsável pelos serviços da aplicação, neste caso possuímos apenas o api.ts.
-   Este arquivo é responsável por todos os métodos destinados as requisições no back-end.
+### Pages
 
-7. Pasta Types
-   Responsável pela interface de Post da nossa aplicação, ou seja, o contrato de envio de informação e de recebimento de respostas, previne erros de tipagem.
+Contém todos os componentes de página da aplicação:
 
-Para setup inicial, basta clonar o projeto e rodar o npm install, após isso, rodar o comando npm run dev para rodar a aplicação.
+- **Login**: Página de autenticação do usuário, necessária para edição e exclusão de posts.
+- **HomePage**: Cadastro, listagem e deleção de posts.
+- **PostDetail**: Visualização detalhada de um post específico.
+- **EditPost**: Edição de posts.
+- **ProtectedRoute**: Guardião de rotas privadas (`authGuard`), checando se o usuário está autenticado antes de acessar certas páginas (é possível ver a implementação e o funcionamento em `App.tsx`).
 
-Para consumo do back-end e utilização da aplicação por completo, você deverá baixar o nosso back-end (clonar o repositório), abrir o docker Desktop em sua máquina, abrir o projeto em seu editor de código e rodar o comando docker compose up.
-link backend (https://github.com/jadsow/techchallenge2-backend.git)
+---
 
-A primeira página da aplicação é composta pela lista de posts e pelo cadastro de um novo post, caso você deseje.
-Poderá também filtrar os posts pelo título e autor.
-Ao clicar em Ler mais, você poderá ver as informações completas do post, lembre-se, para editar ou excluir qualquer post, você deverá estar logado na aplicação.
+### Services
 
-A edição você conseguirá realizar dentro e um post, já a exclusão, a própria listagem terá o botão (caso você estiver logado). Vale ressaltar que implementamos o toast da biblioteca react-toastify para trazer uma mensagem mais amigável ao usuário quando houver algum tipo de problema.
+- **api.ts**: Arquivo responsável pelas requisições HTTP ao backend (GET, POST, PUT, DELETE).
+
+---
+
+### Types
+
+- Definições de interfaces utilizadas em toda a aplicação, principalmente a interface de `Post`, estabelecendo o contrato de envio e garantindo segurança de tipagem nas comunicações com o backend, evitando erros.
+
+---
+
+## Setup do Projeto
+
+### Inicialização
+
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/jadsow/techchallenge3-frontend.git
+   ```
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+3. Rode o projeto:
+   ```bash
+   npm run dev
+   ```
+
+### Backend
+
+Para utilização completa (incluindo persistência de dados e autenticação):
+
+1. Clone o repositório do backend:
+   ```bash
+   git clone https://github.com/jadsow/techchallenge2-backend.git
+   ```
+2. Abra o projeto na sua IDE de preferência.
+3. Incie o Docker Desktop em sua máquina.
+4. Rode o backend:
+   ```bash
+   docker-compose up --build
+   ```
+
+## Funcionalidades Principais
+
+- Listagem de posts na página inicial.
+- Cadastro de novos posts.
+- Filtro de posts por título ou autor.
+- Visualização detalhada de posts ("Ler mais").
+- Edição e exclusão de posts (somente usuários autenticados).
+- Persistência de autenticação com `localStorage`.
+- Feedbacks visuais utilizando **react-toastify** para sucesso e erros.
+
+> **Nota**: Para editar ou excluir posts, é necessário estar logado.
+
+---
+
+## Link do Backend
+
+- [Repositório Backend](https://github.com/jadsow/techchallenge2-backend.git)
